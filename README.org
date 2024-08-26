@@ -1,0 +1,28 @@
+#+title: 8-bit Adventure
+#+author: BotNikos
+
+* Description
+Another pixel-art RPG retro game started as a hobby
+
+* How to install
+
+** Dependencies
++ clang
++ SDL2
++ SDL2_image
+
+** Installation 
+To install this programm you need to do following
+commands in your terminal:
+
+#+begin_src bash
+  git clone https://github.com/BotNikos/8bitGame.git
+  cd 8bitGame
+  make 
+#+end_src
+
+After that you can start programm:
+
+#+begin_src bash
+  ./main
+#+end_src
