@@ -1,24 +1,36 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <string.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+#include "./levels/testlvl.h"
+#include "./include/being.h"
+#include "./include/sdlHelper.h"
+
+
 int main (void) {
 
-    SDL_Init (SDL_INIT_EVERYTHING);
-    IMG_Init (IMG_INIT_PNG);
+    if (SDL_Init (SDL_INIT_EVERYTHING) < 0) 
+        showErrorMessage ("init everything");
+        
+    if (IMG_Init (IMG_INIT_PNG) < 0)
+        showErrorMessage ("image init");
 
-    SDL_Window *window = SDL_CreateWindow ("test?", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
-    SDL_Surface *winSurf = SDL_GetWindowSurface (window);
+    SDL_Window *window = SDL_CreateWindow ("8bitGame", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
+    SDL_Renderer *renderer = SDL_CreateRenderer (window, -1, SDL_RENDERER_ACCELERATED);
 
-    SDL_Surface *image = IMG_Load ("./sprites/mainHero.png");
+    if (!window)
+        showErrorMessage ("window creation");
+
+    if (!renderer)
+        showErrorMessage ("renderer creation");
+
+    struct being *hero = createBeing (createTextureFromImage (renderer, "./sprites/mainHero.png"), 0, 0);
 
     bool running = true;
-
-    SDL_Rect dest;
-    dest.x = 0;
-    dest.y = 0;
 
     while (running) {
 
@@ -30,26 +42,30 @@ int main (void) {
 
         else if (event.type == SDL_KEYDOWN) {
             if (event.key.keysym.sym == SDLK_RIGHT)
-                dest.x += 10;
+                hero -> pos.x += 10;
             if (event.key.keysym.sym == SDLK_LEFT)
-                dest.x -= 10;
+                hero -> pos.x -= 10;
             if (event.key.keysym.sym == SDLK_DOWN)
-                dest.y += 10;
+                hero -> pos.y += 10;
             if (event.key.keysym.sym == SDLK_UP)
-                dest.y -= 10;
+                hero -> pos.y -= 10;
         }
 
-        SDL_FillRect (winSurf, NULL, SDL_MapRGB (winSurf -> format, 0, 200, 50));
-        SDL_BlitSurface (image, NULL, winSurf, &dest);
+        SDL_SetRenderDrawColor(renderer, 0, 200, 50, 255);
+        SDL_RenderClear (renderer);
 
-        SDL_UpdateWindowSurface (window);
+        SDL_RenderCopy (renderer, hero -> img, NULL, &hero -> pos);
+
+        SDL_RenderPresent (renderer);
     }
 
+    SDL_DestroyTexture(hero -> img);
     SDL_DestroyWindow (window);
-    window = NULL;
-    winSurf = NULL;
+    SDL_DestroyRenderer (renderer);
 
     SDL_Quit ();
+
+    printf ("sizeof of testlevel is %zu", sizeof (testlevel) / (levelWidth * sizeof (int)));
 
     return 0;
 }
