@@ -7,9 +7,9 @@
 
 void drawMap (SDL_Renderer *renderer) {
 
-    for (int i = 0; i < sizeof (testlevel) / levelWidth * sizeof (int)) {
-        for (int j = 0; j < sizeof (testlevel [i]) / levelWidth) {
-            
+    for (int i = 0; i < sizeof (testlevel) / (levelWidth * sizeof (int)); i++) {
+        for (int j = 0; j < sizeof (testlevel [i]) / sizeof (int); j++) {
+            SDL_Texture *test = createTextureFromImage(renderer, "./sprites/arrows.png");
         }
     }
     

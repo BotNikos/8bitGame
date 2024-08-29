@@ -2,8 +2,8 @@
 #define TESTLVL_H
 
 enum tileNames {grass, flowersGrass, pathHorizontal, pathVertical,
-                       pathLeftUp, pathDownLeft, pathDownRight, pathUpLeft,
-                       pathUpRight};
+                pathLeftUp, pathDownLeft, pathDownRight, pathUpLeft,
+                pathUpRight};
 
 static int levelWidth = 5; 
 

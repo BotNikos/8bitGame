@@ -7,9 +7,10 @@
 #include <SDL2/SDL_image.h>
 
 #include "./levels/testlvl.h"
+
 #include "./include/being.h"
 #include "./include/sdlHelper.h"
-
+#include "./include/map.h"
 
 int main (void) {
 
@@ -54,6 +55,7 @@ int main (void) {
         SDL_SetRenderDrawColor(renderer, 0, 200, 50, 255);
         SDL_RenderClear (renderer);
 
+        drawMap (renderer);
         SDL_RenderCopy (renderer, hero -> img, NULL, &hero -> pos);
 
         SDL_RenderPresent (renderer);
@@ -64,8 +66,6 @@ int main (void) {
     SDL_DestroyRenderer (renderer);
 
     SDL_Quit ();
-
-    printf ("sizeof of testlevel is %zu", sizeof (testlevel) / (levelWidth * sizeof (int)));
 
     return 0;
 }
