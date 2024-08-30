@@ -38,18 +38,20 @@ int main (void) {
         SDL_Event event;
         SDL_PollEvent (&event);
 
+        int step = 32;
+
         if (event.type == SDL_QUIT) 
             running = false;
 
         else if (event.type == SDL_KEYDOWN) {
             if (event.key.keysym.sym == SDLK_RIGHT)
-                hero -> pos.x += 10;
+                hero -> pos.x += step;
             if (event.key.keysym.sym == SDLK_LEFT)
-                hero -> pos.x -= 10;
+                hero -> pos.x -= step;
             if (event.key.keysym.sym == SDLK_DOWN)
-                hero -> pos.y += 10;
+                hero -> pos.y += step;
             if (event.key.keysym.sym == SDLK_UP)
-                hero -> pos.y -= 10;
+                hero -> pos.y -= step;
         }
 
         SDL_SetRenderDrawColor(renderer, 0, 200, 50, 255);

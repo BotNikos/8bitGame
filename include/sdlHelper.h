@@ -4,7 +4,7 @@
 #include <SDL2/SDL.h>
 
 struct loadedTexture {
-    char *fileName;
+    char fileName [32];
     SDL_Texture *texture;
 };
 

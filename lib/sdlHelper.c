@@ -41,7 +41,7 @@ SDL_Texture *createTextureFromImage (SDL_Renderer *renderer, char *fileName) {
         showErrorMessage ("texture create");
 
     struct loadedTexture textureInfo;
-    textureInfo.fileName = fileName;
+    strcpy (textureInfo.fileName, fileName);
     textureInfo.texture = texture;
 
     allTextureSize += sizeof (textureInfo);
