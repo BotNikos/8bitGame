@@ -34,29 +34,16 @@ int main (void) {
     bool running = true;
 
     while (running) {
-
         SDL_Event event;
         SDL_PollEvent (&event);
 
-        int step = 32;
-
-        if (event.type == SDL_QUIT) 
+        if (event.type == SDL_QUIT)
             running = false;
-
-        else if (event.type == SDL_KEYDOWN) {
-            if (event.key.keysym.sym == SDLK_RIGHT)
-                hero -> pos.x += step;
-            if (event.key.keysym.sym == SDLK_LEFT)
-                hero -> pos.x -= step;
-            if (event.key.keysym.sym == SDLK_DOWN)
-                hero -> pos.y += step;
-            if (event.key.keysym.sym == SDLK_UP)
-                hero -> pos.y -= step;
-        }
 
         SDL_SetRenderDrawColor(renderer, 0, 200, 50, 255);
         SDL_RenderClear (renderer);
 
+        hero -> move (hero, event);
         drawMap (renderer);
         SDL_RenderCopy (renderer, hero -> img, NULL, &hero -> pos);
 
