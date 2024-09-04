@@ -11,6 +11,7 @@
 #include "./include/being.h"
 #include "./include/sdlHelper.h"
 #include "./include/map.h"
+#include "./include/game_globals.h"
 
 int main (void) {
 
@@ -20,7 +21,7 @@ int main (void) {
     if (IMG_Init (IMG_INIT_PNG) < 0)
         showErrorMessage ("image init");
 
-    SDL_Window *window = SDL_CreateWindow ("8bitGame", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
+    SDL_Window *window = SDL_CreateWindow ("8bitGame", 100, 100, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
     SDL_Renderer *renderer = SDL_CreateRenderer (window, -1, SDL_RENDERER_ACCELERATED);
 
     if (!window)
@@ -29,7 +30,8 @@ int main (void) {
     if (!renderer)
         showErrorMessage ("renderer creation");
 
-    struct being *hero = createBeing (createTextureFromImage (renderer, "./sprites/mainHero.png"), 0, 0);
+    struct tile **initedTiles = initMap (renderer, TEST_LEVEL_ROWS, TEST_LEVEL_COLS, testlevel);
+    struct being *hero = createBeing (createTextureFromImage (renderer, "./sprites/mainHero.png"), 33, 33);
 
     bool running = true;
 
@@ -44,7 +46,7 @@ int main (void) {
         SDL_RenderClear (renderer);
 
         hero -> move (hero, event);
-        drawMap (renderer);
+        drawMap (renderer, initedTiles, TEST_LEVEL_ROWS * TEST_LEVEL_COLS);
         SDL_RenderCopy (renderer, hero -> img, NULL, &hero -> pos);
 
         SDL_RenderPresent (renderer);

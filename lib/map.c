@@ -2,11 +2,24 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+#include "../levels/testlvl.h"
 #include "../include/map.h"
 #include "../include/sdlHelper.h"
-#include "../levels/testlvl.h"
 
-void drawMap (SDL_Renderer *renderer) {
+struct tile* createTile (char *tileName, SDL_Texture *texutre,
+                         SDL_Rect pos, SDL_Rect closedZone) {
+
+    struct tile* tile = (struct tile *) malloc (sizeof (struct tile));
+    
+    strcpy (tile -> tileName, tileName);
+    tile -> texture = texutre;
+    tile -> pos = pos;
+    tile -> closedZone = closedZone;
+
+    return tile;
+}
+
+struct tile **initMap (SDL_Renderer *renderer, int rows, int cols, enum tileNames level[rows][cols]) {
 
     char *tileNames [] = {
         "grass",
@@ -17,8 +30,12 @@ void drawMap (SDL_Renderer *renderer) {
         "pathDownLeft",
         "pathDownRight",
         "pathUpLeft",
-        "pathUpRight"
+        "pathUpRight",
+        "trees"
     };
+
+    size_t allTilesSize = rows * cols * sizeof (struct tile *);
+    struct tile **initedTiles = (struct tile **) malloc (allTilesSize);
 
     SDL_Rect tilePos;
     tilePos.x = 0;
@@ -26,18 +43,43 @@ void drawMap (SDL_Renderer *renderer) {
     tilePos.w = 32;
     tilePos.h = 32;
 
-    for (int i = 0; i < sizeof (testlevel) / (levelWidth * sizeof (int)); i++) {
-        for (int j = 0; j < sizeof (testlevel [i]) / sizeof (int); j++) {
-            char tile [32];
-            sprintf (tile, "./sprites/%s.png", tileNames [testlevel [i][j]]);
+    SDL_Rect closedZone;
+    closedZone.x = 0;
+    closedZone.y = 0;
+    closedZone.w = 0;
+    closedZone.h = 0;
 
-            SDL_Texture *tileTexture = createTextureFromImage(renderer, tile);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            char tilePath [32];
+            sprintf (tilePath, "./sprites/%s.png", tileNames [level [i][j]]);
+
+            SDL_Texture *tileTexture = createTextureFromImage(renderer, tilePath);
 
             tilePos.x = j * 32;
             tilePos.y = i * 32;
 
-            SDL_RenderCopy (renderer, tileTexture, NULL, &tilePos);
+            switch (level [i][j]) {
+                case trees:
+                    closedZone.w = 32;
+                    closedZone.h = 32;
+                    break;
+            }
+
+            struct tile *tile = createTile (tilePath, tileTexture, tilePos, closedZone);
+
+            int currentTileIndex = i * cols + j;
+            initedTiles [currentTileIndex] = tile;
         }
     }
+
+    return initedTiles;
+}
+
+void drawMap (SDL_Renderer *renderer, struct tile *initedTiles [], int mapSize) {
     
+    for (int i = 0; i < mapSize; i++) {
+        SDL_RenderCopy (renderer, initedTiles [i] -> texture, NULL, &initedTiles [i] -> pos);
+    }
+
 }

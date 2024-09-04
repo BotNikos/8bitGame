@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <SDL2/SDL.h>
 #include "../include/being.h"
+#include "../include/game_globals.h"
 
 void move (struct being *self, SDL_Event event) {
     int speed;
@@ -24,13 +25,13 @@ void move (struct being *self, SDL_Event event) {
         }
     }
 
-    if (self -> moving.right)
+    if (self -> moving.right && self -> pos.x < WINDOW_WIDTH - self -> pos.w)
         self -> pos.x += 1;
 
     if (self -> moving.up)
         self -> pos.y -= 1;
 
-    if (self -> moving.left)
+    if (self -> moving.left && self -> pos.x > 0)
         self -> pos.x -= 1;
 
     if (self -> moving.down)
