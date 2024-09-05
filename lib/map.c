@@ -31,7 +31,9 @@ struct tile **initMap (SDL_Renderer *renderer, int rows, int cols, enum tileName
         "pathDownRight",
         "pathUpLeft",
         "pathUpRight",
-        "trees"
+        "trees",
+        "lakeRight",
+        "lake"
     };
 
     size_t allTilesSize = rows * cols * sizeof (struct tile *);
@@ -44,10 +46,6 @@ struct tile **initMap (SDL_Renderer *renderer, int rows, int cols, enum tileName
     tilePos.h = 32;
 
     SDL_Rect closedZone;
-    closedZone.x = 0;
-    closedZone.y = 0;
-    closedZone.w = 0;
-    closedZone.h = 0;
 
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
@@ -59,8 +57,16 @@ struct tile **initMap (SDL_Renderer *renderer, int rows, int cols, enum tileName
             tilePos.x = j * 32;
             tilePos.y = i * 32;
 
+            closedZone.x = 0; closedZone.y = 0;
+            closedZone.w = 0; closedZone.h = 0;
+
             switch (level [i][j]) {
-                case trees:
+                case trees: case lake:
+                    closedZone.w = 32;
+                    closedZone.h = 32;
+                    break;
+                case lakeRight:
+                    closedZone.x = 24;
                     closedZone.w = 32;
                     closedZone.h = 32;
                     break;

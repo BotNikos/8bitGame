@@ -1,6 +1,8 @@
 #ifndef MAP_H
 #define MAP_H
 
+#include "tileNames.h"
+
 struct tile {
     char tileName [32];
     SDL_Texture *texture; 

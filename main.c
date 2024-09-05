@@ -31,7 +31,7 @@ int main (void) {
         showErrorMessage ("renderer creation");
 
     struct tile **initedTiles = initMap (renderer, TEST_LEVEL_ROWS, TEST_LEVEL_COLS, testlevel);
-    struct being *hero = createBeing (createTextureFromImage (renderer, "./sprites/mainHero.png"), 33, 33);
+    struct being *hero = createBeing (createTextureFromImage (renderer, "./sprites/mainHero.png"), 32, 32);
 
     bool running = true;
 
@@ -45,7 +45,7 @@ int main (void) {
         SDL_SetRenderDrawColor(renderer, 0, 200, 50, 255);
         SDL_RenderClear (renderer);
 
-        hero -> move (hero, event);
+        hero -> move (hero, event, initedTiles, TEST_LEVEL_ROWS * TEST_LEVEL_COLS);
         drawMap (renderer, initedTiles, TEST_LEVEL_ROWS * TEST_LEVEL_COLS);
         SDL_RenderCopy (renderer, hero -> img, NULL, &hero -> pos);
 
