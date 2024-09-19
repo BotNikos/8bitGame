@@ -8,8 +8,8 @@ struct loadedTexture {
     SDL_Texture *texture;
 };
 
-void showErrorMessage (char *message);
-SDL_Texture *checkTexture (struct loadedTexture *allTextures, int texturesCount, char *fileName);
-SDL_Texture *createTextureFromImage (SDL_Renderer *renderer, char *fileName);
+void showErrorMessage (char *);
+SDL_Texture *checkTexture (struct loadedTexture *, int, char *);
+SDL_Texture *createTextureFromImage (SDL_Renderer *, char *);
 
 #endif 

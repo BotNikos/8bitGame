@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <string.h>
-#include "../include/sdlHelper.h"
+#include "sdlHelper.h"
 
 void showErrorMessage (char *message) {
     printf ("Error: %s, %s", message, SDL_GetError());

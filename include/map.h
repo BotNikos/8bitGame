@@ -1,7 +1,9 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include "tileNames.h"
+enum tileNames {grass, flowersGrass, pathHorizontal, pathVertical,
+                pathLeftUp, pathDownLeft, pathDownRight, pathUpLeft,
+                pathUpRight, trees, lakeRight, lake};
 
 struct tile {
     char tileName [32];
@@ -10,12 +12,11 @@ struct tile {
     SDL_Rect closedZone;
 };
 
-struct tile* createTile (char *tileName, SDL_Texture *texutre,
-                         SDL_Rect pos, SDL_Rect closedZone);
+struct tile* createTile (char *, SDL_Texture *, SDL_Rect, SDL_Rect);
 
-struct tile **initMap (SDL_Renderer *renderer, int rows,
+struct tile **initMap (SDL_Renderer *, int rows,
                        int cols, enum tileNames level[rows][cols]);
 
-void drawMap (SDL_Renderer *renderer, struct tile *initedTiles [], int mapSize);
+void drawMap (SDL_Renderer *, struct tile *[], int);
 
 #endif

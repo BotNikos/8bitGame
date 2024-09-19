@@ -6,12 +6,12 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-#include "./levels/testlvl.h"
+#include "testlvl.h"
 
-#include "./include/being.h"
-#include "./include/sdlHelper.h"
-#include "./include/map.h"
-#include "./include/game_globals.h"
+#include "being.h"
+#include "sdlHelper.h"
+#include "map.h"
+#include "game_globals.h"
 
 int main (void) {
 

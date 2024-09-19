@@ -2,7 +2,7 @@
 #define BEING_H
 
 #include <SDL2/SDL.h>
-#include "../include/map.h"
+#include "map.h"
 
 struct moving {
     bool right;
@@ -19,8 +19,8 @@ struct being {
     void (*move) (struct being *, SDL_Event, struct tile **, int);
 };
 
-bool checkMove (struct being *being, int nextX, int nextY, struct tile **initedTiles, int levelSize);
-void move (struct being *self, SDL_Event event, struct tile **initedTiles, int levelSize);
-struct being* createBeing (SDL_Texture *texture, int x, int y);
+bool checkMove (struct being *, int, int, struct tile **, int);
+void move (struct being *, SDL_Event, struct tile **, int);
+struct being* createBeing (SDL_Texture *, int, int);
 
 #endif

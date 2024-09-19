@@ -1,29 +1,30 @@
-BIN=bin
-LIB=lib
+INCLUDE = include
+LEVELS = levels
+SRC = src
+BUILD = build
 
-main: main.c $(BIN)/libgame.a $(BIN)/libsdlHelper.a
-	clang -g main.c -o main -L./$(BIN) -lSDL2 -lSDL2_image -lgame -lsdlHelper
+CFLAGS = -L./$(BUILD)
+CFLAGS += -lSDL2 -lSDL2_image -lgame
+CFLAGS += -I $(INCLUDE) -I $(LEVELS)
 
-$(BIN)/libgame.a: $(BIN)/being.o $(BIN)/map.o
-	ar -rsc $(BIN)/libgame.a $(BIN)/being.o $(BIN)/map.o
+OBJS = $(BUILD)/being.o
+OBJS += $(BUILD)/map.o
+OBJS += $(BUILD)/sdlHelper.o
 
-$(BIN)/being.o: $(LIB)/being.c bin
-	clang -c -g $(LIB)/being.c -o $(BIN)/being.o
+main: main.c $(BUILD)/libgame.a $(INCLUDE)/game_globals.h
+	clang -g main.c -o main $(CFLAGS) 
 
-$(BIN)/map.o: $(LIB)/map.c bin
-	clang -c -g $(LIB)/map.c -o $(BIN)/map.o
+$(BUILD)/%.o: $(SRC)/%.c $(INCLUDE)/%.h
+	clang -c -g $< -o $@ -I $(INCLUDE) -I $(LEVELS)
 
-$(BIN)/libsdlHelper.a: $(BIN)/sdlHelper.o
-	ar -rsc $(BIN)/libsdlHelper.a $(BIN)/sdlHelper.o
+$(BUILD)/libgame.a: $(BUILD) $(OBJS)
+	ar -rsc $@ $(OBJS)
 
-$(BIN)/sdlHelper.o: $(LIB)/sdlHelper.c bin
-	clang -c -g $(LIB)/sdlHelper.c -o $(BIN)/sdlHelper.o
-
-bin:
-	mkdir $(BIN)
+$(BUILD):
+	mkdir $(BUILD)
 
 clean:
-	rm -r bin 
+	rm -r build
 
 run: main
 	./main

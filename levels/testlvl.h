@@ -1,7 +1,7 @@
 #ifndef TESTLVL_H
 #define TESTLVL_H
 
-#include "../include/tileNames.h"
+#include "map.h"
 
 #define TEST_LEVEL_ROWS 7
 #define TEST_LEVEL_COLS 6

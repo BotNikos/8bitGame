@@ -1,7 +1,7 @@
 #ifndef GAME_GLOBALS_H
 #define GAME_GLOBALS_H
 
-#include "../levels/testlvl.h"
+#include "testlvl.h"
 
 /* #define WINDOW_WIDTH 640 */
 /* #define WINDOW_HEIGHT 480 */

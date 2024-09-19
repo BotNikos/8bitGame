@@ -2,9 +2,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-#include "../levels/testlvl.h"
-#include "../include/map.h"
-#include "../include/sdlHelper.h"
+#include "testlvl.h"
+#include "map.h"
+#include "sdlHelper.h"
 
 struct tile* createTile (char *tileName, SDL_Texture *texutre,
                          SDL_Rect pos, SDL_Rect closedZone) {

@@ -1,8 +1,8 @@
 #include <stdbool.h>
 #include <SDL2/SDL.h>
-#include "../include/being.h"
-#include "../include/game_globals.h"
-#include "../include/map.h"
+#include "being.h"
+#include "game_globals.h"
+#include "map.h"
 
 bool checkMove (struct being *being, int nextX, int nextY, struct tile **initedTiles, int levelSize) {
     bool canMove = true;
@@ -23,7 +23,6 @@ bool checkMove (struct being *being, int nextX, int nextY, struct tile **initedT
         int closedZoneY = initedTiles [i] -> closedZone.y + initedTiles [i] -> pos.y;
         int closedZoneEndY = closedZoneY + initedTiles [i] -> closedZone.h;
 
-        /* if (nextX < closedZoneEndX && nextY < closedZoneY) */
         if (nextX < closedZoneEndX && nextX + being -> pos.w > closedZoneX && nextY < closedZoneEndY && nextY + being -> pos.h > closedZoneY)
             canMove = false;
     }
