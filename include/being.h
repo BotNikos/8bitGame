@@ -5,21 +5,21 @@
 #include "map.h"
 
 struct moving {
-    bool right;
-    bool up;
-    bool left;
-    bool down;
-    bool run;
+	unsigned char right: 	1;
+	unsigned char up: 	1;
+	unsigned char left: 	1;
+	unsigned char down: 	1;
+	unsigned char run: 	1;
 };
 
 struct being {
-    SDL_Rect pos;
-    SDL_Texture *img;
-    struct moving moving;
-    void (*move) (struct being *, SDL_Event, struct tile **, int);
+	SDL_Rect 	pos;
+	SDL_Texture 	*img;
+	struct moving 	moving;
+	void 		(*move) (struct being *, SDL_Event, struct tile **, int);
 };
 
-bool checkMove (struct being *, int, int, struct tile **, int);
+unsigned char checkMove (struct being *, int, int, struct tile **, int);
 void move (struct being *, SDL_Event, struct tile **, int);
 struct being* createBeing (SDL_Texture *, int, int);
 

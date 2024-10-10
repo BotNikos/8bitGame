@@ -1,8 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdbool.h>
-#include <string.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
@@ -14,49 +9,51 @@
 #include "game_globals.h"
 
 int main (void) {
+	SDL_Window 	*window;
+	SDL_Renderer 	*renderer;
+	SDL_Event 	event;
 
-    if (SDL_Init (SDL_INIT_EVERYTHING) < 0) 
-        showErrorMessage ("init everything");
-        
-    if (IMG_Init (IMG_INIT_PNG) < 0)
-        showErrorMessage ("image init");
+	struct tile	**initedTiles;
+	struct being	*hero;
 
-    SDL_Window *window = SDL_CreateWindow ("8bitGame", 100, 100, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
-    SDL_Renderer *renderer = SDL_CreateRenderer (window, -1, SDL_RENDERER_ACCELERATED);
+	unsigned char	running = 1;
 
-    if (!window)
-        showErrorMessage ("window creation");
+	if (SDL_Init (SDL_INIT_EVERYTHING) < 0 || IMG_Init (IMG_INIT_PNG) < 0)  {
+		showErrorMessage ("Init error");
+	}
 
-    if (!renderer)
-        showErrorMessage ("renderer creation");
+	window = SDL_CreateWindow ("8bitGame", 100, 100, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+	renderer = SDL_CreateRenderer (window, -1, SDL_RENDERER_ACCELERATED);
 
-    struct tile **initedTiles = initMap (renderer, TEST_LEVEL_ROWS, TEST_LEVEL_COLS, testlevel);
-    struct being *hero = createBeing (createTextureFromImage (renderer, "./sprites/mainHero.png"), 32, 32);
+	if (!window || !renderer) {
+		showErrorMessage ("Window or renderer error");
+	}
 
-    bool running = true;
+	initedTiles = initMap (renderer, TEST_LEVEL_ROWS, TEST_LEVEL_COLS, testlevel);
+	hero = createBeing (createTextureFromImage (renderer, "./sprites/mainHero.png"), 32, 32);
 
-    while (running) {
-        SDL_Event event;
-        SDL_PollEvent (&event);
+	while (running) {
+		SDL_PollEvent (&event);
 
-        if (event.type == SDL_QUIT)
-            running = false;
+		if (event.type == SDL_QUIT) {
+			running = 0;
+		}
 
-        SDL_SetRenderDrawColor(renderer, 0, 200, 50, 255);
-        SDL_RenderClear (renderer);
+		SDL_SetRenderDrawColor(renderer, 0, 200, 50, 255);
+		SDL_RenderClear (renderer);
 
-        hero -> move (hero, event, initedTiles, TEST_LEVEL_ROWS * TEST_LEVEL_COLS);
-        drawMap (renderer, initedTiles, TEST_LEVEL_ROWS * TEST_LEVEL_COLS);
-        SDL_RenderCopy (renderer, hero -> img, NULL, &hero -> pos);
+		hero -> move (hero, event, initedTiles, TEST_LEVEL_ROWS * TEST_LEVEL_COLS);
+		drawMap (renderer, initedTiles, TEST_LEVEL_ROWS * TEST_LEVEL_COLS);
+		SDL_RenderCopy (renderer, hero -> img, NULL, &hero -> pos);
 
-        SDL_RenderPresent (renderer);
-    }
+		SDL_RenderPresent (renderer);
+	}
 
-    SDL_DestroyTexture(hero -> img);
-    SDL_DestroyWindow (window);
-    SDL_DestroyRenderer (renderer);
+	SDL_DestroyTexture(hero -> img);
+	SDL_DestroyWindow (window);
+	SDL_DestroyRenderer (renderer);
 
-    SDL_Quit ();
+	SDL_Quit ();
 
-    return 0;
+	return 0;
 }
