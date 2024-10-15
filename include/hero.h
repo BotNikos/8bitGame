@@ -1,14 +1,16 @@
  /******************************//*!
- * \file	being.h
+ * \file	hero.h
  * \brief	Описание
  * \author	bolotovN
  * \date	Создан: 15.10.2024
  * \date	Изменён: 15.10.2024
  */
-#ifndef _BEING_H
-#define _BEING_H
+#ifndef _HERO_H
+#define _HERO_H
 
 #include <SDL3/SDL.h>
+
+#include "being.h"
 
 /*
  *	Macros definition
@@ -20,11 +22,10 @@
  *	Type declaration
  */
 
-struct _being_ {
-	SDL_Texture *texture;	
-	SDL_FRect pos;
+struct _hero_ {
+	struct _being_ *being;
+	unsigned hp;
 };
-
 
 
 /*
@@ -42,10 +43,9 @@ struct _being_ {
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-	struct _being_ *init_b (SDL_Renderer *, const char *, unsigned, unsigned);
+	struct _hero_ *init_h (SDL_Renderer *, const char *, unsigned, unsigned, unsigned);
 
 #ifdef __cplusplus
 }
 #endif
-#endif /* _BEING_H */
+#endif /* _HERO_H */

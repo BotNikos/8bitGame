@@ -1,30 +1,32 @@
-INCLUDE = include
-LEVELS = levels
 SRC = src
+INCLUDE = include
+
 BUILD = build
 
-CFLAGS = -L./$(BUILD)
-CFLAGS += -lSDL2 -lSDL2_image -lgame
-CFLAGS += -I $(INCLUDE) -I $(LEVELS)
+OBJS = $(BUILD)/main.o
+OBJS += $(BUILD)/being.o
+OBJS += $(BUILD)/hero.o
 
-OBJS = $(BUILD)/being.o
-OBJS += $(BUILD)/map.o
-OBJS += $(BUILD)/sdlHelper.o
+SDL_FLAGS = $(shell pkg-config sdl3 --cflags --libs)
+SDL_FLAGS += -lSDL3_image
 
-main: main.c $(BUILD)/libgame.a $(INCLUDE)/game_globals.h
-	clang -g main.c -o main $(CFLAGS) 
+CFLAGS = -I./$(INCLUDE)
 
-$(BUILD)/%.o: $(SRC)/%.c $(INCLUDE)/%.h
-	clang -c -g $< -o $@ -I $(INCLUDE) -I $(LEVELS)
+main: $(OBJS)
+	clang -g $(OBJS) -o $@ $(SDL_FLAGS)
 
-$(BUILD)/libgame.a: $(BUILD) $(OBJS)
-	ar -rsc $@ $(OBJS)
+$(BUILD)/main.o: main.c $(BUILD)
+	clang -g -c main.c -o $@ $(CFLAGS)
+
+$(BUILD)/%.o: $(SRC)/%.c $(INCLUDE)/%.h $(BUILD)
+	clang -g -c $< -o $@ $(CFLAGS)
 
 $(BUILD):
 	mkdir $(BUILD)
 
 clean:
-	rm -r build
+	rm -r main build/
 
-run: main
+run:
 	./main
+
