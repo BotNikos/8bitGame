@@ -33,7 +33,7 @@ struct _hero_ {
 	struct _being_ being;
 	struct _moving_ moving;
 	unsigned hp;
-	void (*move) (SDL_Event *, struct _hero_ *);
+	void (*move) (struct _hero_ *, SDL_Event *);
 };
 
 
@@ -52,7 +52,7 @@ struct _hero_ {
 #ifdef __cplusplus
 extern "C" {
 #endif
-	struct _hero_ *init_h (SDL_Renderer *, const char *, unsigned, unsigned, unsigned);
+	struct _hero_ *inith (SDL_Renderer *, const char *, unsigned, unsigned, unsigned);
 
 #ifdef __cplusplus
 }

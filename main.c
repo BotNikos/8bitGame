@@ -24,7 +24,7 @@ int main () {
 		printf ("Error: %s", SDL_GetError ());
 	}
 
-	hero = init_h (renderer, "sprites/mainHero.png", 0, 0, 100);
+	hero = inith (renderer, "sprites/mainHero.png", 0, 0, 100);
 
 	while (running) {
 		SDL_PollEvent (&event);
@@ -36,11 +36,11 @@ int main () {
 		SDL_SetRenderDrawColor (renderer, 0, 200, 50, 255);
 		SDL_RenderClear (renderer);
 
-		hero->move (&event, hero);
+		hero->move (hero, &event);
 		SDL_RenderTexture (renderer, hero->being.texture, NULL, &hero->being.pos);
 
 		SDL_RenderPresent (renderer);
-		SDL_Delay (5);
+		SDL_Delay (10);
 	}
 
 	SDL_DestroyRenderer (renderer);

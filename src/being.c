@@ -24,7 +24,7 @@
  *	Functions(s) definitions:
  */
 
-struct _being_ *init_b (SDL_Renderer *rnd, const char *spr, unsigned x, unsigned y) {
+struct _being_ *initb (SDL_Renderer *rnd, const char *spr, unsigned x, unsigned y) {
 	struct _being_ *b = (struct _being_ *) malloc (sizeof (struct _being_));
 	assert (b);
 

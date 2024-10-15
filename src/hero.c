@@ -23,7 +23,7 @@
  *	Functions(s) definitions:
  */
 
-static void __change_status (struct _hero_ *h, SDL_Event *e, unsigned char s) {
+static void __chgmove (struct _hero_ *h, SDL_Event *e, unsigned char s) {
 	switch (e->key.key) {
 	    case SDLK_UP: 	h->moving.up = s; break;
 	    case SDLK_DOWN: 	h->moving.down = s; break;
@@ -34,12 +34,13 @@ static void __change_status (struct _hero_ *h, SDL_Event *e, unsigned char s) {
 }
 
 
-static void __move (SDL_Event *e, struct _hero_ *h) {
+static void __move (struct _hero_ *h, SDL_Event *e) {
 	if (e->key.type == SDL_EVENT_KEY_DOWN)
-		__change_status(h, e, 1);
+		__chgmove (h, e, 1);
 
 	else if (e->key.type == SDL_EVENT_KEY_UP)
-		__change_status(h, e, 0);
+		__chgmove (h, e, 0);
+
 
 	if (h->moving.up)
 		h->being.pos.y -= 1;
@@ -55,10 +56,10 @@ static void __move (SDL_Event *e, struct _hero_ *h) {
 }
 
 
-struct _hero_ *init_h (SDL_Renderer *rnd, const char *spr, unsigned x, unsigned y, unsigned hp) {
+struct _hero_ *inith (SDL_Renderer *rnd, const char *spr, unsigned x, unsigned y, unsigned hp) {
 	struct _hero_ *h = (struct _hero_ *) malloc (sizeof (struct _hero_));
 
-	h->being 	= *init_b (rnd, spr, x, y);
+	h->being 	= *initb (rnd, spr, x, y);
 
 	h->moving.up	= 0;
 	h->moving.down	= 0;
