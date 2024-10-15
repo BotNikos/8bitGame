@@ -2,15 +2,26 @@
 #+author: BotNikos
 
 * Description
-Another pixel-art RPG retro game started as a hobby
+Another pixel-art RPG retro game
 
 * How to install
 
 ** Dependencies
 + clang
-+ SDL2
-+ SDL2_image
++ cmake (to compile SDL3 and SDL_Image from source code)
++ [[https://wiki.libsdl.org/SDL3/Installation][SDL3]]
++ [[https://wiki.libsdl.org/SDL3_image/FrontPage][SDL_Image]]
 
+  To install SDL_Image:
+ #+begin_src bash
+   git clone https://github.com/libsdl-org/SDL_Image.git
+   cd SDL_Image
+   mkdir build && cd build
+   cmake ..
+   make
+   sudo make install
+#+end_src
+** 
 ** Installation 
 To install this programm you need to do following
 commands in your terminal:
@@ -25,4 +36,8 @@ After that you can start programm:
 
 #+begin_src bash
   ./main
+#+end_src
+or
+#+begin_src bash
+  make run
 #+end_src
