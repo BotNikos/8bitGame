@@ -23,14 +23,50 @@
  *	Functions(s) definitions:
  */
 
+static void __change_status (struct _hero_ *h, SDL_Event *e, unsigned char s) {
+	switch (e->key.key) {
+	    case SDLK_UP: 	h->moving.up = s; break;
+	    case SDLK_DOWN: 	h->moving.down = s; break;
+	    case SDLK_LEFT: 	h->moving.left = s; break;
+	    case SDLK_RIGHT: 	h->moving.right = s; break;
+	    default: break;
+	}
+}
+
+
+static void __move (SDL_Event *e, struct _hero_ *h) {
+	if (e->key.type == SDL_EVENT_KEY_DOWN)
+		__change_status(h, e, 1);
+
+	else if (e->key.type == SDL_EVENT_KEY_UP)
+		__change_status(h, e, 0);
+
+	if (h->moving.up)
+		h->being.pos.y -= 1;
+
+	if (h->moving.down)
+		h->being.pos.y += 1;
+
+	if (h->moving.left)
+		h->being.pos.x -= 1;
+
+	if (h->moving.right)
+		h->being.pos.x += 1;
+}
 
 
 struct _hero_ *init_h (SDL_Renderer *rnd, const char *spr, unsigned x, unsigned y, unsigned hp) {
 	struct _hero_ *h = (struct _hero_ *) malloc (sizeof (struct _hero_));
 
-	h->being = init_b (rnd, spr, x, y);
-	h->hp = hp;
+	h->being 	= *init_b (rnd, spr, x, y);
 
+	h->moving.up	= 0;
+	h->moving.down	= 0;
+	h->moving.left	= 0;
+	h->moving.right	= 0;
+
+	h->hp 		= hp;
+	h->move 	= __move;
 
 	return h;
 }

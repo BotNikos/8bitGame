@@ -22,9 +22,18 @@
  *	Type declaration
  */
 
+struct _moving_ {
+	unsigned up: 	1;
+	unsigned down: 	1;
+	unsigned left: 	1;
+	unsigned right: 1;
+};
+
 struct _hero_ {
-	struct _being_ *being;
+	struct _being_ being;
+	struct _moving_ moving;
 	unsigned hp;
+	void (*move) (SDL_Event *, struct _hero_ *);
 };
 
 

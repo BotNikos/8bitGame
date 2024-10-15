@@ -11,7 +11,7 @@ int main () {
 
 	char 		running 	= 1;
 
-	struct _hero_ *hero;
+	struct _hero_ 	*hero;
 
 	if (SDL_Init (SDL_INIT_VIDEO) == false || IMG_Init (IMG_INIT_PNG) == false) {
 		printf ("Error: %s", SDL_GetError ());
@@ -36,7 +36,8 @@ int main () {
 		SDL_SetRenderDrawColor (renderer, 0, 200, 50, 255);
 		SDL_RenderClear (renderer);
 
-		SDL_RenderTexture (renderer, hero->being->texture, NULL, &hero->being->pos);
+		hero->move (&event, hero);
+		SDL_RenderTexture (renderer, hero->being.texture, NULL, &hero->being.pos);
 
 		SDL_RenderPresent (renderer);
 		SDL_Delay (5);
@@ -44,6 +45,7 @@ int main () {
 
 	SDL_DestroyRenderer (renderer);
 	SDL_DestroyWindow (window);
+
 	IMG_Quit ();
 	SDL_Quit ();
 
