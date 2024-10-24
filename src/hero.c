@@ -25,33 +25,34 @@
 
 static void __chgmove (struct _hero_ *h, SDL_Event *e, unsigned char s) {
 	switch (e->key.key) {
-	    case SDLK_UP: 	h->moving.up = s; break;
-	    case SDLK_DOWN: 	h->moving.down = s; break;
-	    case SDLK_LEFT: 	h->moving.left = s; break;
-	    case SDLK_RIGHT: 	h->moving.right = s; break;
-	    default: break;
+		case SDLK_UP:		h->moving.up	= s; break;
+		case SDLK_DOWN:		h->moving.down	= s; break;
+		case SDLK_LEFT:		h->moving.left	= s; break;
+		case SDLK_RIGHT:	h->moving.right	= s; break;
+		default: break;
 	}
 }
 
+/*
+	Chagne hero position by 1 pixel
 
+	param[in]	e	event
+	param[out]	h	hero struct
+ */
 static void __move (struct _hero_ *h, SDL_Event *e) {
-	if (e->key.type == SDL_EVENT_KEY_DOWN)
-		__chgmove (h, e, 1);
-
-	else if (e->key.type == SDL_EVENT_KEY_UP)
-		__chgmove (h, e, 0);
-
+	if (e->key.type == SDL_EVENT_KEY_DOWN || e->key.type == SDL_EVENT_KEY_UP)
+		__chgmove (h, e, !(e->key.type - SDL_EVENT_KEY_DOWN));
 
 	if (h->moving.up)
 		h->being.pos.y -= 1;
 
-	if (h->moving.down)
+	else if (h->moving.down)
 		h->being.pos.y += 1;
 
 	if (h->moving.left)
 		h->being.pos.x -= 1;
 
-	if (h->moving.right)
+	else if (h->moving.right)
 		h->being.pos.x += 1;
 }
 

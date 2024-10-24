@@ -1,0 +1,103 @@
+#+Title: Hero module
+#+Author: Nikita Bolotov
+-----
+
+* Types 
+
+** Hero [[../../include/hero.h::32]]
+
+*** Code
+#+BEGIN_SRC C
+  struct _hero_ {
+	  struct _being_ being;
+	  struct _moving_ moving;
+	  unsigned hp;
+	  void (*move) (struct _hero_ *, SDL_Event *);
+  };
+#+END_SRC
+
+** Moving  [[../../include/hero.h::25]]
+
+*** Code
+#+BEGIN_SRC C
+  struct _moving_ {
+	  unsigned up:		1;
+	  unsigned down: 	1;
+	  unsigned left: 	1;
+	  unsigned right:	1;
+  };
+#+END_SRC
+
+*** Notes
+1 - means that hero moving in cooresponding directory;
+Use only in [[*Hero \[\[../../include/hero.h::32\]\]][Hero]] struct
+
+-----
+
+* Functions
+
+** Interface functions
+
+*** Inith [[../../src/hero.c::69]]
+
+**** Code
+#+BEGIN_SRC C
+  struct _hero_ *inith (SDL_Renderer *rnd, const char *spr, unsigned x, unsigned y, unsigned hp);
+#+END_SRC
+
+**** Return value
+Retrun inited hero struct
+
+**** Notes
+This function use malloc
+
+
+** Static functions
+
+*** Move [[../../src/hero.c::42]]
+
+**** Code
+#+begin_src C
+  static void __move (struct _hero_ *h, SDL_Event *e);
+#+end_src
+
+**** Notes
+When we call chgmove function:
+#+begin_src C
+  __chgmove (h, e, !(e->key.type - SDL_EVENT_KEY_DOWN));
+#+end_src
+
+It use substraction in last argument and inverts result.
+This need to get 1 on keydown event and 0 on keyup envent.
+e->key.type in this block of code can by either
+~SDL_EVENT_KEY_DOWN~ or ~SDL_EVENT_KEY_UP~
+
+So we have: 
+~SDL_EVENT_KEY_DOWN~	value is 0x300;
+			0x300 - 0x300 = 0;
+			!(0x300 - 0x300) = 1
+
+~SDL_EVENT_KEY_UP~	value is 0x301;
+			0x301 - 0x300 = 1;
+			!(0x301 - 0x300) = 0
+
+*** Chgmove [[../../src/hero.c::26]]
+
+**** Description
+Change hero moving struct depending on whitch arrow key(s)
+is pressed to status
+
+**** Params
+| name | desc           |
+|------+----------------|
+| h    | hero struct    |
+| e    | event          |
+| s    | state (1 or 0) |
+
+**** Code
+#+begin_src C
+  static void __chgmove (struct _hero_ *h, SDL_Event *e, unsigned char s);
+#+end_src
+
+**** Notes
+Use only in [[*Move \[\[../../src/hero.c::42\]\]][Move]] function

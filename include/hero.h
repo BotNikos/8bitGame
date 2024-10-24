@@ -47,8 +47,6 @@ struct _hero_ {
  *	Function declaration
  */
 
-
-
 #ifdef __cplusplus
 extern "C" {
 #endif
