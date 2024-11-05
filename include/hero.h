@@ -1,7 +1,7 @@
  /******************************//*!
  * \file	hero.h
  * \brief	Описание
- * \author	bolotovN
+ * \author	Nikita Bolotov
  * \date	Создан: 15.10.2024
  * \date	Изменён: 15.10.2024
  */

@@ -3,6 +3,7 @@
 #include <SDL3_image/SDL_image.h>
 
 #include "hero.h"
+#include "game_globals.h"
 
 int main () {
 	SDL_Window	*window		= NULL;
@@ -17,7 +18,7 @@ int main () {
 		printf ("Error: %s", SDL_GetError ());
 	}
 
-	window = SDL_CreateWindow ("8bitgame", 640, 480, 0);
+	window = SDL_CreateWindow ("8bitgame", SCREEN_WIDTH, SCREEN_HEIGHT, 0);
 	renderer = SDL_CreateRenderer (window, NULL);
 
 	if (!renderer || !window) {

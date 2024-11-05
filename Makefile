@@ -7,7 +7,8 @@ OBJS = $(BUILD)/being.o
 OBJS += $(BUILD)/hero.o
 OBJS += $(BUILD)/main.o
 
-SDL_FLAGS = $(shell pkg-config sdl3 --cflags --libs)
+# SDL_FLAGS = $(shell pkg-config sdl3 --cflags --libs) #Work
+SDL_FLAGS = -L/usr/local/lib -Wl,-rpath,/usr/local/lib -Wl,--enable-new-dtags -lSDL3 #Home
 SDL_FLAGS += -lSDL3_image
 
 CFLAGS = -I./$(INCLUDE)
