@@ -54,8 +54,6 @@ enum tile_names {
 extern "C" {
 #endif
 
-
-
 #ifdef __cplusplus
 }
 #endif

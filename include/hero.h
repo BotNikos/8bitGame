@@ -9,7 +9,6 @@
 #define _HERO_H
 
 #include <SDL3/SDL.h>
-
 #include "being.h"
 
 /*
