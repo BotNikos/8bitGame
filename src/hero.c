@@ -5,6 +5,7 @@
  * \date	Создан: 15.10.2024
  * \date	Изменён: 15.10.2024
  */
+#include <stdio.h>
 #include <stdlib.h>
 #include <SDL3/SDL.h>
 
@@ -18,31 +19,57 @@
  *	Data definition:
  */
 
-static unsigned char __ckcolls (struct _hero_ *h) {
-	unsigned char 	rc 		= 1;
-	SDL_FRect 	screen_box 	= {0 + 32, 0 + 32, SCREEN_WIDTH - 32, SCREEN_HEIGHT - 32};
-
-
-	if (!SDL_HasRectIntersectionFloat(&h->being.pos, &screen_box)) {
-		rc = 0;
-	}
-	
-
-	return rc;
-}
-
 /*
  *	Functions(s) definitions:
  */
 
 /**
-	Chagne hero position by 1 pixel
+	Get next posision of the hero based on hero->moving struct
 
-	param[in]	e	event
-	param[out]	h	hero struct
+
+	params[in]	h	Hero struct
+	params[out]	p	Next hero position
+ */
+static void __getnpos (struct _hero_ *h, SDL_FRect *p) {
+	if (h->moving.up)
+		p->y -= 1;
+
+	else if (h->moving.down)
+		p->y += 1;
+
+	if (h->moving.left)
+		p->x -= 1;
+
+	else if (h->moving.right)
+		p->x += 1;
+}
+
+/**
+	Check collisions with screen and closzed zones
+	in a 9 blocks around the hero
+
+	params[in]	h	Hero struct
+	params[out]	np	Next hero position
+ */
+static void __ckcolls (struct _hero_ *h, SDL_FRect *np) {
+	if (np->x < 0 || np->x > SCREEN_WIDTH) {
+		np->x = h->being.pos.x;
+	}
+
+	if (np->y < 0 || np->y > SCREEN_HEIGHT) {
+		np->y = h->being.pos.y;
+	}
+}
+
+/**
+	Chagne the hero position by 1 pixel
+
+	param[in]	e	Event
+	param[out]	h	Hero struct
  */
 static void __move (struct _hero_ *h, SDL_Event *e) {
-	unsigned char s = !(e->key.type - SDL_EVENT_KEY_DOWN);
+	unsigned char 	s	= !(e->key.type - SDL_EVENT_KEY_DOWN);
+	SDL_FRect	p	= h->being.pos;
 
 	switch (e->key.key) {
 		case SDLK_UP:		h->moving.up	= s; break;
@@ -52,21 +79,13 @@ static void __move (struct _hero_ *h, SDL_Event *e) {
 		default: break;
 	}
 
-	if (h->moving.up && __ckcolls(h))
-		h->being.pos.y -= 1;
-
-	else if (h->moving.down && __ckcolls(h))
-		h->being.pos.y += 1;
-
-	if (h->moving.left && __ckcolls(h))
-		h->being.pos.x -= 1;
-
-	else if (h->moving.right && __ckcolls(h))
-		h->being.pos.x += 1;
+	__getnpos (h, &p);
+	__ckcolls (h ,&p);
+	h->being.pos = p;
 }
 
 /**
-	Init hero struct and return it
+	Init a hero struct and return it
 
 	params[in]	rnd	SDL Renderer
 			spr 	Sprite name
