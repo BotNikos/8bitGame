@@ -7,7 +7,7 @@ Another pixel-art RPG retro game
 * How to install
 
 ** Dependencies
-+ clang
++ clang (can be replaced with gcc)
 + cmake (to compile SDL3 and SDL_Image from source code)
 + [[https://wiki.libsdl.org/SDL3/Installation][SDL3]]
 + [[https://wiki.libsdl.org/SDL3_image/FrontPage][SDL_Image]]
@@ -32,10 +32,17 @@ commands in your terminal:
   make 
 #+end_src
 
-After that you can start programm:
+If you want to build using gcc you need to replace
+the last command to:
 
 #+begin_src bash
-  ./main
+  make CC=gcc
+#+end_src
+
+  After that you can start programm:
+
+#+begin_src bash
+    ./main
 #+end_src
 or
 #+begin_src bash
