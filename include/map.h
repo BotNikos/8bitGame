@@ -10,6 +10,7 @@
 
 #include <SDL3/SDL.h>
 #include "hero.h"
+#include "level.h"
 
 
 
@@ -28,7 +29,14 @@ struct _cell_ {
 	SDL_FRect 	pos;
 	void 		(*onstep) 	(struct _hero_ *);
 	void 		(*onuse) 	(struct _hero_ *);
-}
+};
+
+struct _map_ {
+	struct _cell_ *tiles;
+	void (*draw) (struct _map_ *, SDL_Renderer *);
+	void (*free) (struct _map_ *);
+};
+
 
 /*
  *	Data declaration
@@ -46,6 +54,7 @@ struct _cell_ {
 extern "C" {
 #endif
 
+	struct _map_ initm (SDL_Renderer *, struct _lvl_data_ *);
 
 
 #ifdef __cplusplus

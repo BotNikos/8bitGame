@@ -4,15 +4,20 @@
 
 #include "hero.h"
 #include "game_globals.h"
+#include "level.h"
+
+#include "levels/testlvl.h"
 
 int main () {
-	SDL_Window	*window		= NULL;
-	SDL_Renderer	*renderer	= NULL;
-	SDL_Event	event;
+	SDL_Window		*window		= NULL;
+	SDL_Renderer		*renderer	= NULL;
+	SDL_Event		event;
 
-	char 		running 	= 1;
+	char 			running 	= 1;
 
-	struct _hero_ 	*hero;
+	struct _lvl_data_	c_lvl		= testlvl;
+
+	struct _hero_ 		*hero;
 
 	if (SDL_Init (SDL_INIT_VIDEO) == false || IMG_Init (IMG_INIT_PNG) == false) {
 		printf ("Error: %s", SDL_GetError ());

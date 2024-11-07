@@ -34,7 +34,7 @@ enum tile_names {
 	TREES,
 	LAKE,
 	LAKE_R
-}
+};
 
 
 
