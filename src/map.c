@@ -31,6 +31,8 @@ TODO:
 1. Убрать switch из ф-ии
 2. Оптимизировать загрузку тайла
 3. Сохранять уже загруженную текстуру
+4. Исправить смещенеи m->tiles
+5. Изменить массив скриптов в модулей level на однсв. список (двумерный массив для ускорения поиска)
 
 */
 struct _map_ *initm (SDL_Renderer *r, struct _lvl_data_ *l) {
@@ -49,10 +51,10 @@ struct _map_ *initm (SDL_Renderer *r, struct _lvl_data_ *l) {
 		y = i / l->width;
 
 		switch (l->matrix[i]) {
-			case GRASS: 	strcpy(n, "../sprites/grass.png"); 		break;
-			case FLW_GRASS:	strcpy(n, "../sprites/flowersGrass.png"); 	break;
-			case TREES: 	strcpy(n, "../sprites/trees.png"); 		break;
-			case PATH_UD: 	strcpy(n, "../sprites/pathVertical.png");	break;
+			case GRASS: 	strcpy(n, "sprites/grass.png"); 		break;
+			case FLW_GRASS:	strcpy(n, "sprites/flowersGrass.png"); 	break;
+			case TREES: 	strcpy(n, "sprites/trees.png"); 		break;
+			case PATH_UD: 	strcpy(n, "sprites/pathVertical.png");	break;
 		}
 
 		m->tiles->texture = IMG_LoadTexture(r, n);

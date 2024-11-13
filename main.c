@@ -44,6 +44,7 @@ int main () {
 		SDL_RenderClear (renderer);
 
 		hero->move (hero, &event);
+		SDL_RenderTexture (renderer, (map->tiles - 14)->texture, NULL, &(map->tiles - 14)->pos);
 		SDL_RenderTexture (renderer, hero->being.texture, NULL, &hero->being.pos);
 
 		SDL_RenderPresent (renderer);
