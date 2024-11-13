@@ -6,6 +6,7 @@ LEVELS = levels
 INCLUDE = include
 
 OBJS = $(BUILD)/being.o
+OBJS += $(BUILD)/map.o
 OBJS += $(BUILD)/hero.o
 OBJS += $(BUILD)/main.o
 

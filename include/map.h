@@ -25,7 +25,7 @@
  */
 
 struct _cell_ {
-	SDL_Texture 	texture;
+	SDL_Texture 	*texture;
 	SDL_FRect 	pos;
 	void 		(*onstep) 	(struct _hero_ *);
 	void 		(*onuse) 	(struct _hero_ *);
@@ -54,7 +54,7 @@ struct _map_ {
 extern "C" {
 #endif
 
-	struct _map_ initm (SDL_Renderer *, struct _lvl_data_ *);
+	struct _map_ *initm (SDL_Renderer *, struct _lvl_data_ *);
 
 
 #ifdef __cplusplus

@@ -5,14 +5,14 @@
 #include "hero.h"
 #include "game_globals.h"
 #include "level.h"
+#include "map.h"
 
 #include "levels/testlvl.h"
 
 int main () {
+	SDL_Event		event;
 	SDL_Window		*window		= NULL;
 	SDL_Renderer		*renderer	= NULL;
-	SDL_Event		event;
-
 	char 			running 	= 1;
 
 	struct _lvl_data_	c_lvl		= testlvl;
@@ -31,6 +31,7 @@ int main () {
 	}
 
 	hero = inith (renderer, "sprites/mainHero.png", 0, 0, 100);
+	struct _map_ *map = initm (renderer, &c_lvl);
 
 	while (running) {
 		SDL_PollEvent (&event);
