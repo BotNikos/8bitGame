@@ -1,14 +1,14 @@
  /******************************//*!
- * \file	tile_names.h
+ * \file	sprites.h
  * \brief	Описание
  * \author	bolotovN
  * \date	Создан: 15.10.2024
  * \date	Изменён: 15.10.2024
  */
-#ifndef _TILE_NAMES_H
-#define _TILE_NAMES_H
+#ifndef _SPRITES_H
+#define _SPRITES_H
 
-
+#include <SDL3_image/SDL_image.h>
 
 /*
  *	Macros definition
@@ -33,7 +33,8 @@ enum tile_names {
 
 	TREES,
 	LAKE,
-	LAKE_R
+	LAKE_R,
+	TILE_LAST = LAKE_R,
 };
 
 
@@ -54,7 +55,9 @@ enum tile_names {
 extern "C" {
 #endif
 
+	SDL_Texture *gettexture (SDL_Renderer *, enum tile_names);
+
 #ifdef __cplusplus
 }
 #endif
-#endif /* _TILE_NAMES_H */
+#endif /* _SPRITES_H */

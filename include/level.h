@@ -8,7 +8,7 @@
 #ifndef _LEVEL_H
 #define _LEVEL_H
 
-#include "tile_names.h"
+#include "sprites.h"
 #include "hero.h"
 
 

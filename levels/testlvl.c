@@ -7,7 +7,7 @@
  */
 #include "level.h"
 #include "hero.h"
-#include "tile_names.h"
+#include "sprites.h"
 
 #include "testlvl.h"
 
