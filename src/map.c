@@ -25,21 +25,16 @@
  *	Functions(s) definitions:
  */
 
-/*
-
-TODO: 
-Загрузка скриптов в клетку карты
-
-*/
 struct _map_ *initm (SDL_Renderer *r, struct _lvl_data_ *l) {
 	struct _map_ 	*m 	= (struct _map_ *) malloc (sizeof (struct _map_));
 	int 		m_sz	= l->width * l->height;
 	int 		x 	= 0;
 	int 		y 	= 0;
-	char		n [128];
+	int		e 	= 0;
 
 	assert (m);
 	m->tiles = (struct _cell_ *) malloc (sizeof (struct _cell_) * m_sz);
+	memset (m->tiles, 0, sizeof (struct _cell_) * m_sz);
 	assert (m->tiles);
 
 	for (int i = 0; i < m_sz; i++) {
@@ -53,12 +48,15 @@ struct _map_ *initm (SDL_Renderer *r, struct _lvl_data_ *l) {
 		m->tiles->pos.w = 32;
 		m->tiles->pos.h = 32;
 
-		m->tiles->onstep = NULL;
-		m->tiles->onuse = NULL;
+		if (l->scripts[e].x == x && l->scripts[e].y == y) {
+			m->tiles->onstep = l->scripts[e].onstep;
+			m->tiles->onuse = l->scripts[e].onuse;
+		}
 		
 		m->tiles += 1;
 	}
 
+	m->tiles -= m_sz;
 	return m;
 }
 

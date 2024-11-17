@@ -31,7 +31,7 @@ struct _event_ {
 
 struct _lvl_data_ {
 	enum tile_names 	*matrix;
-	struct _event_		*scripts;
+	struct _event_		*scripts; // Events array must be sorted according to the matrix order 
 	unsigned int		width;
 	unsigned int		height;
 };
