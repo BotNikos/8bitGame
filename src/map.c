@@ -25,6 +25,20 @@
  *	Functions(s) definitions:
  */
 
+
+static void __draw (struct _map_ *m, struct SDL_Renderer *r) {
+	for (int i = 0; i < m->width * m->height; i++) {
+		SDL_RenderTexture (r, (m->tiles + i)->texture, NULL, &(m->tiles + i)->pos);
+	}
+}
+
+/**
+	Init map according to passed level info
+
+	param[in]	r	SDL_Renderer
+			l	Level data
+	return		map	Inited map
+ */
 struct _map_ *initm (SDL_Renderer *r, struct _lvl_data_ *l) {
 	struct _map_ 	*m 	= (struct _map_ *) malloc (sizeof (struct _map_));
 	int 		m_sz	= l->width * l->height;
@@ -32,10 +46,14 @@ struct _map_ *initm (SDL_Renderer *r, struct _lvl_data_ *l) {
 	int 		y 	= 0;
 	int		e 	= 0;
 
+	m->width = l->width;
+	m->height = l->height;
+	m->draw = __draw;
+
 	assert (m);
 	m->tiles = (struct _cell_ *) malloc (sizeof (struct _cell_) * m_sz);
-	memset (m->tiles, 0, sizeof (struct _cell_) * m_sz);
 	assert (m->tiles);
+	memset (m->tiles, 0, sizeof (struct _cell_) * m_sz);
 
 	for (int i = 0; i < m_sz; i++) {
 		x = i % l->width;

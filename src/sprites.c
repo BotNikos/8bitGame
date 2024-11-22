@@ -21,7 +21,7 @@ static char *tile_names [] = {
 	"pathVertical",
 	"pathUpLeft",
 	"pathUpRight",
-	"pathDownLeft,"
+	"pathDownLeft",
 	"pathDownRight",
 	"pathHorizontal",
 

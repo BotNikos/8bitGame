@@ -43,8 +43,8 @@ int main () {
 		SDL_SetRenderDrawColor (renderer, 0, 200, 50, 255);
 		SDL_RenderClear (renderer);
 
+		map->draw (map, renderer);
 		hero->move (hero, &event);
-		SDL_RenderTexture (renderer, map->tiles->texture, NULL, &map->tiles->pos);
 		SDL_RenderTexture (renderer, hero->being.texture, NULL, &hero->being.pos);
 
 		SDL_RenderPresent (renderer);

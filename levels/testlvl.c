@@ -24,7 +24,7 @@ static void __damage (struct _hero_ *h) {
  */
 
 static enum tile_names __matrix [TESTLVL_HEIGHT][TESTLVL_WIDTH] = {
-	{GRASS,		GRASS,		FLW_GRASS,	GRASS},
+	{PATH_LR,	PATH_DL,	FLW_GRASS,	GRASS},
 	{TREES,		PATH_UD,	TREES,		FLW_GRASS},
 	{TREES,		PATH_UD,	TREES,		FLW_GRASS},
 	{GRASS,		GRASS,		FLW_GRASS,	TREES},

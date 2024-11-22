@@ -35,6 +35,8 @@ struct _map_ {
 	struct _cell_ *tiles;
 	void (*draw) (struct _map_ *, SDL_Renderer *);
 	void (*free) (struct _map_ *);
+	int width;
+	int height;
 };
 
 
