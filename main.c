@@ -16,7 +16,7 @@ int main () {
 	char 			running 	= 1;
 
 	struct _lvl_data_	c_lvl		= testlvl;
-
+	struct _map_		*map;
 	struct _hero_ 		*hero;
 
 	if (SDL_Init (SDL_INIT_VIDEO) == false || IMG_Init (IMG_INIT_PNG) == false) {
@@ -30,8 +30,8 @@ int main () {
 		printf ("Error: %s", SDL_GetError ());
 	}
 
-	hero = inith (renderer, "sprites/mainHero.png", 0, 0, 100);
-	struct _map_ *map = initm (renderer, &c_lvl);
+	hero = inith (renderer, "sprites/mainHero.png", SCREEN_WIDTH / 2 - (32 / 2), SCREEN_HEIGHT / 2 - (32 / 2), 100);
+	map = initm (renderer, &c_lvl);
 
 	while (running) {
 		SDL_PollEvent (&event);
@@ -44,7 +44,7 @@ int main () {
 		SDL_RenderClear (renderer);
 
 		map->draw (map, renderer);
-		hero->move (hero, &event);
+		hero->move (hero, &event, map);
 		SDL_RenderTexture (renderer, hero->being.texture, NULL, &hero->being.pos);
 
 		SDL_RenderPresent (renderer);

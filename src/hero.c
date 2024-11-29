@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <SDL3/SDL.h>
 
+#include "map.h"
 #include "being.h"
 #include "hero.h"
 #include "game_globals.h"
@@ -67,7 +68,7 @@ static void __ckcolls (struct _hero_ *h, SDL_FRect *np) {
 	param[in]	e	Event
 	param[out]	h	Hero struct
  */
-static void __move (struct _hero_ *h, SDL_Event *e) {
+static void __move (struct _hero_ *h, SDL_Event *e, struct _map_ *m) {
 	unsigned char 	s	= !(e->key.type - SDL_EVENT_KEY_DOWN);
 	SDL_FRect	p	= h->being.pos;
 
@@ -79,9 +80,17 @@ static void __move (struct _hero_ *h, SDL_Event *e) {
 		default: break;
 	}
 
-	__getnpos (h, &p);
-	__ckcolls (h ,&p);
-	h->being.pos = p;
+
+	for (int i = m->width * m->height; i--;) {
+		m->tiles [i].pos.x -= h->moving.right;
+		m->tiles [i].pos.x += h->moving.left;
+		m->tiles [i].pos.y += h->moving.up;
+		m->tiles [i].pos.y -= h->moving.down;
+	}
+
+	/* __getnpos (h, &p); */
+	/* __ckcolls (h ,&p); */
+	/* h->being.pos = p; */
 }
 
 /**

@@ -12,12 +12,9 @@
 #include "hero.h"
 #include "level.h"
 
-
-
 /*
  *	Macros definition
  */
-
 
 
 /*
@@ -32,11 +29,11 @@ struct _cell_ {
 };
 
 struct _map_ {
-	struct _cell_ *tiles;
+	struct _cell_	*tiles;
+	int		width;
+	int		height;
 	void (*draw) (struct _map_ *, SDL_Renderer *);
 	void (*free) (struct _map_ *);
-	int width;
-	int height;
 };
 
 

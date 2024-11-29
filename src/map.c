@@ -10,11 +10,8 @@
 #include <assert.h>
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
-#include "hero.h"
 #include "level.h"
 #include "map.h"
-
-
 
 /*
  *	Data definition:

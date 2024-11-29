@@ -17,9 +17,9 @@ SDL_FLAGS = -L/usr/local/lib -Wl,-rpath,/usr/local/lib -Wl,--enable-new-dtags -l
 SDL_FLAGS += -lSDL3_image
 
 CFLAGS = -I./$(INCLUDE)
-CFLAGS += -I.
+# CFLAGS += -I.
 
-main: $(BUILD) $(OBJS)
+main: $(BUILD) $(OBJS) TAGS
 	$(CC) -g $(OBJS) -o $@ $(SDL_FLAGS)
 
 $(BUILD)/main.o: main.c
@@ -33,6 +33,9 @@ $(BUILD)/%.o: $(LEVELS)/%.c $(LEVELS)/%.h
 
 $(BUILD):
 	mkdir $(BUILD)
+
+TAGS:
+	etags -R
 
 clean:
 	rm -r main build/

@@ -12,7 +12,6 @@
 #include "hero.h"
 
 
-
 /*
  *	Macros definition
  */

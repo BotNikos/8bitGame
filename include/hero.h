@@ -21,6 +21,8 @@
  *	Type declaration
  */
 
+struct _map_;
+
 struct _moving_ {
 	unsigned up: 	1;
 	unsigned down: 	1;
@@ -32,7 +34,7 @@ struct _hero_ {
 	struct _being_ being;
 	struct _moving_ moving;
 	unsigned hp;
-	void (*move) (struct _hero_ *, SDL_Event *);
+	void (*move) (struct _hero_ *, SDL_Event *, struct _map_ *);
 };
 
 
