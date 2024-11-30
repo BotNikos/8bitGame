@@ -23,6 +23,18 @@
  */
 
 
+
+/*
+	Draw all tiles of map array
+
+	param[in]	m	Map control structure
+			r	SDL_Renderer
+
+	TODO: Draw only those cells that relly need
+	on screen + one row and column outside of
+	the screen
+
+ */
 static void __draw (struct _map_ *m, struct SDL_Renderer *r) {
 	for (int i = 0; i < m->width * m->height; i++) {
 		SDL_RenderTexture (r, (m->tiles + i)->texture, NULL, &(m->tiles + i)->pos);

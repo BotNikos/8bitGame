@@ -72,6 +72,9 @@ static void __move (struct _hero_ *h, SDL_Event *e, struct _map_ *m) {
 	unsigned char 	s	= !(e->key.type - SDL_EVENT_KEY_DOWN);
 	SDL_FRect	p	= h->being.pos;
 
+	SDL_FRect	f_pos	= m->tiles [0].pos;
+	SDL_FRect	l_pos	= m->tiles [(m->width * m->height) - 1].pos;
+
 	switch (e->key.key) {
 		case SDLK_UP:		h->moving.up	= s; break;
 		case SDLK_DOWN:		h->moving.down	= s; break;
@@ -82,10 +85,21 @@ static void __move (struct _hero_ *h, SDL_Event *e, struct _map_ *m) {
 
 
 	for (int i = m->width * m->height; i--;) {
-		m->tiles [i].pos.x -= h->moving.right;
-		m->tiles [i].pos.x += h->moving.left;
-		m->tiles [i].pos.y += h->moving.up;
-		m->tiles [i].pos.y -= h->moving.down;
+		if (f_pos.x < 0) {
+			m->tiles [i].pos.x += h->moving.left;
+		}
+
+		if (l_pos.x + 32 > SCREEN_WIDTH) {
+			m->tiles [i].pos.x -= h->moving.right;
+		}
+
+		if (f_pos.y < 0) {
+			m->tiles [i].pos.y += h->moving.up;
+		}
+
+		if (l_pos.y > SCREEN_HEIGHT - 32) {
+			m->tiles [i].pos.y -= h->moving.down;
+		}
 	}
 
 	/* __getnpos (h, &p); */
